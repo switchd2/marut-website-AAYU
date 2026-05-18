@@ -16,9 +16,9 @@ export default function Home() {
       <FeatureCards />
       <Technology />
       <OpenSource />
-      <Community />
       <Roadmap />
       <Blog />
+      <Community />
       <Footer />
     </main>
   )

@@ -35,8 +35,7 @@ export default function Technology() {
         {modes.map((mode, idx) => {
           const Icon = mode.icon
           return (
-            <div key={idx} className="relative bg-dark-card border border-dark-border rounded-lg p-8 group hover:border-yellow/40 transition-colors">
-              <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-yellow opacity-0 group-hover:opacity-100 transition-opacity rounded-l-lg" />
+            <div key={idx} className="relative bg-dark-card border border-dark-border rounded-lg p-8 group hover:border-yellow/40 hover:shadow-[0_0_20px_rgba(255,214,0,0.15)] transition-all duration-300">
               <Icon size={32} className="text-yellow mb-6" />
               <h3 className="text-xs font-bold uppercase tracking-widest text-white mb-4">{mode.title}</h3>
               <p className="text-sm text-white/50 leading-relaxed">{mode.body}</p>

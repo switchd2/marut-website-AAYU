@@ -110,11 +110,11 @@ body {
     z-index: 100;
     background-color: rgba(10, 10, 10, 0.95);
     backdrop-filter: blur(8px);
-    transition: border-bottom 0.3s ease;
-    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s ease;
+    border-bottom: 1px solid rgba(31, 31, 31, 0);
 }
 #navbar.scrolled {
-    border-bottom: 1px solid var(--border-color);
+    border-bottom-color: var(--border-color);
 }
 
 .nav-container {
@@ -331,11 +331,11 @@ body {
     border-radius: 4px;
     padding: 40px 32px;
     transition: all 0.3s ease;
-    border-left: 2px solid transparent;
 }
 
 .tech-card:hover {
-    border-left-color: var(--accent);
+    border-color: rgba(255, 214, 0, 0.4);
+    box-shadow: 0 0 20px rgba(255, 214, 0, 0.15);
     background-color: var(--bg-surface);
 }
 
