@@ -40,7 +40,7 @@ export default function Hero() {
               A fully open source tri-mode Flight Control Unit. All in the making by a community of passionate innovators and contributors.
             </p>
 
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-col sm:flex-row gap-4">
               <Button variant="primary">
                 <IconCode size={16} className="mr-2 inline" /> EXPLORE TECHNOLOGY →
               </Button>
@@ -67,7 +67,7 @@ export default function Hero() {
       <div
         className="absolute inset-y-0 right-0 w-1/2 pointer-events-none z-0 opacity-50"
         style={{
-          backgroundImage: 'radial-gradient(circle, rgba(255,214,0,0.07) 1px, transparent 1px)',
+          backgroundImage: 'radial-gradient(circle, rgba(0,255,85,0.07) 1px, transparent 1px)',
           backgroundSize: '28px 28px',
         }}
       />
