@@ -52,7 +52,7 @@ export default function Community() {
           href="https://github.com/lawslefthand/Marut_FCU/"
           target="_blank"
           rel="noopener noreferrer"
-          className="bg-dark-card border border-dark-border rounded-lg p-8 text-center block hover:border-yellow/40 hover:shadow-[0_0_20px_rgba(255,214,0,0.15)] hover:scale-[1.02] transition-all duration-300 cursor-pointer"
+          className="bg-dark-card border border-dark-border rounded-lg p-8 text-center block hover:border-yellow/40 hover:shadow-[0_0_20px_rgba(0,255,85,0.15)] hover:scale-[1.02] transition-all duration-300 cursor-pointer"
         >
           <IconCode size={32} className="text-yellow mb-5 mx-auto" />
           <h3 className="text-xs font-bold uppercase tracking-widest text-white mb-3">CONTRIBUTE CODE</h3>
@@ -64,7 +64,7 @@ export default function Community() {
           href="https://github.com/lawslefthand/Marut_FCU/issues"
           target="_blank"
           rel="noopener noreferrer"
-          className="bg-dark-card border border-dark-border rounded-lg p-8 text-center block hover:border-yellow/40 hover:shadow-[0_0_20px_rgba(255,214,0,0.15)] hover:scale-[1.02] transition-all duration-300 cursor-pointer"
+          className="bg-dark-card border border-dark-border rounded-lg p-8 text-center block hover:border-yellow/40 hover:shadow-[0_0_20px_rgba(0,255,85,0.15)] hover:scale-[1.02] transition-all duration-300 cursor-pointer"
         >
           <IconBug size={32} className="text-yellow mb-5 mx-auto" />
           <h3 className="text-xs font-bold uppercase tracking-widest text-white mb-3">REPORT ISSUES</h3>
@@ -74,7 +74,7 @@ export default function Community() {
         {/* Card 3: SPREAD THE WORD */}
         <div 
           onClick={handleShareClick}
-          className="bg-dark-card border border-dark-border rounded-lg p-8 text-center block hover:border-yellow/40 hover:shadow-[0_0_20px_rgba(255,214,0,0.15)] hover:scale-[1.02] transition-all duration-300 cursor-pointer"
+          className="bg-dark-card border border-dark-border rounded-lg p-8 text-center block hover:border-yellow/40 hover:shadow-[0_0_20px_rgba(0,255,85,0.15)] hover:scale-[1.02] transition-all duration-300 cursor-pointer"
         >
           <IconShare size={32} className="text-yellow mb-5 mx-auto" />
           <h3 className="text-xs font-bold uppercase tracking-widest text-white mb-3">SPREAD THE WORD</h3>
@@ -127,7 +127,7 @@ export default function Community() {
 
       {isShareOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-dark/80 backdrop-blur-sm p-4">
-          <div className="bg-dark border border-yellow/30 rounded-lg p-6 max-w-md w-full relative shadow-[0_0_30px_rgba(255,214,0,0.15)]">
+          <div className="bg-dark border border-yellow/30 rounded-lg p-6 max-w-md w-full relative shadow-[0_0_30px_rgba(0,255,85,0.15)]">
             {/* Header */}
             <div className="flex justify-between items-center mb-6">
               <h3 className="text-sm font-unbounded font-black uppercase tracking-wider text-yellow">
