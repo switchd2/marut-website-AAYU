@@ -10,8 +10,8 @@ const config: Config = {
     extend: {
       colors: {
         yellow: {
-          DEFAULT: '#FFD600',
-          hover: '#FFC200',
+          DEFAULT: '#00FF55',
+          hover: '#00D147',
         },
         dark: {
           DEFAULT: '#0A0A0A',
@@ -28,7 +28,7 @@ const config: Config = {
         black: '900',
       },
       fontSize: {
-        'display-sm': ['clamp(2.5rem, 6vw, 4rem)', { lineHeight: '1.05', fontWeight: '900' }],
+        'display-sm': ['clamp(1.75rem, 6vw, 4rem)', { lineHeight: '1.05', fontWeight: '900' }],
         'display': ['clamp(3rem, 8vw, 6rem)', { lineHeight: '1.0', fontWeight: '900' }],
       },
       borderRadius: {
