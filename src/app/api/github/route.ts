@@ -17,6 +17,23 @@ interface GitHubContributor {
 export async function GET() {
   try {
     const token = process.env.GITHUB_TOKEN;
+    const isBuildPhase = process.env.NEXT_PHASE === 'phase-production-build';
+
+    // During build time, if no token is available, return fallback immediately
+    // to prevent hitting GitHub's rate limits on shared build server IPs.
+    if (isBuildPhase && !token) {
+      console.info('Next.js build phase detected with no GITHUB_TOKEN; using static fallback data.');
+      return NextResponse.json({
+        stars: 13,
+        forks: 2,
+        contributorsCount: 5,
+        contributors: [
+          { login: 'lawslefthand', avatar_url: 'https://github.com/lawslefthand.png', html_url: 'https://github.com/lawslefthand' }
+        ],
+        isFallback: true,
+      });
+    }
+
     const headers: Record<string, string> = {
       'Accept': 'application/vnd.github+json',
       'User-Agent': 'marut-website',
@@ -80,7 +97,13 @@ export async function GET() {
 
     return NextResponse.json(data);
   } catch (error) {
-    console.error('Error fetching GitHub data, returning fallback:', error);
+    const isBuildPhase = process.env.NEXT_PHASE === 'phase-production-build';
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    if (isBuildPhase) {
+      console.warn('GitHub API fetch failed during build, returning fallback data:', errorMessage);
+    } else {
+      console.error('Error fetching GitHub data, returning fallback:', error);
+    }
     return NextResponse.json({
       stars: 13,
       forks: 2,
