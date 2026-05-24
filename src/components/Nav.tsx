@@ -13,7 +13,7 @@ export default function Nav() {
     { href: '#', id: 'home', label: 'HOME' },
     { href: '#technology', id: 'technology', label: 'TECHNOLOGY' },
     { href: '#open-source', id: 'open-source', label: 'OPEN SOURCE' },
-    { href: '#about', id: 'about', label: 'ABOUT' },
+    { href: '#roadmap', id: 'roadmap', label: 'ROADMAP' },
     { href: '#blog', id: 'blog', label: 'BLOG' },
     { href: '#contact', id: 'contact', label: 'CONTACT' },
   ]
@@ -28,7 +28,7 @@ export default function Nav() {
       }
 
       // 2. Active section tracking based on viewport
-      const sections = ['technology', 'open-source', 'about', 'blog', 'contact']
+      const sections = ['technology', 'open-source', 'roadmap', 'blog', 'contact']
       
       // If we are at the very top of the page, HOME is active
       if (window.scrollY < 120) {
@@ -67,9 +67,9 @@ export default function Nav() {
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         <a href="/" className="inline-flex items-center gap-2">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="2" y="14" width="14" height="4" fill="#FFD600" />
-            <rect x="5" y="10" width="14" height="4" fill="#FFD600" />
-            <rect x="8" y="6" width="14" height="4" fill="#FFD600" />
+            <rect x="2" y="14" width="14" height="4" fill="#00FF55" />
+            <rect x="5" y="10" width="14" height="4" fill="#00FF55" />
+            <rect x="8" y="6" width="14" height="4" fill="#00FF55" />
           </svg>
           <span className="font-black uppercase tracking-widest text-white text-lg">MARUT</span>
         </a>
