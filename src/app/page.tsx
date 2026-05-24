@@ -7,19 +7,22 @@ import Community from '@/components/sections/Community'
 import Roadmap from '@/components/sections/Roadmap'
 import Blog from '@/components/sections/Blog'
 import Footer from '@/components/sections/Footer'
+import { GitHubProvider } from '@/context/GitHubContext'
 
 export default function Home() {
   return (
     <main>
-      <Nav />
-      <Hero />
-      <FeatureCards />
-      <Technology />
-      <OpenSource />
-      <Roadmap />
-      <Blog />
-      <Community />
-      <Footer />
+      <GitHubProvider>
+        <Nav />
+        <Hero />
+        <FeatureCards />
+        <Technology />
+        <OpenSource />
+        <Roadmap />
+        <Blog />
+        <Community />
+        <Footer />
+      </GitHubProvider>
     </main>
   )
 }

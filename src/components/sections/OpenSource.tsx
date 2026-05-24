@@ -1,8 +1,18 @@
+'use client'
+
 import SectionHeading from '@/components/ui/SectionHeading'
 import Button from '@/components/ui/Button'
-import { IconStar, IconUsers } from '@tabler/icons-react'
+import { useGitHub } from '@/context/GitHubContext'
+import AnimatedNumber from '@/components/ui/AnimatedNumber'
+import { IconGitFork } from '@tabler/icons-react'
 
 export default function OpenSource() {
+  const { data, loading } = useGitHub()
+
+  const stars = data?.stars ?? 13
+  const contributorsCount = data?.contributorsCount ?? 5
+  const forks = data?.forks ?? 2
+
   return (
     <section id="open-source" className="section-padding bg-dark-surface">
       <div className="max-w-7xl mx-auto px-6">
@@ -14,16 +24,42 @@ export default function OpenSource() {
               Every schematic, every firmware commit, every PCB layout remains open to the world. Fork it, improve it, build on it. No CLAs. No commercial locks. Just open collaboration. FOREVER.
             </p>
 
-            <div className="flex gap-8 mb-8">
-              <div>
-                <IconStar size={20} className="text-yellow mr-2 inline" />
-                <span className="text-white font-bold">★ 13 Stars</span>
-                <span className="text-white/40 text-sm ml-1">on GitHub</span>
-              </div>
-              <div>
-                <IconUsers size={20} className="text-yellow mr-2 inline" />
-                <span className="text-white font-bold">5 Contributors</span>
-              </div>
+            <div className="flex flex-wrap gap-x-8 gap-y-4 mb-8 items-center min-h-[24px]">
+              {loading ? (
+                <>
+                  <div className="flex items-center gap-2">
+                    <span>⭐</span>
+                    <div className="h-5 w-24 bg-dark-border animate-pulse rounded" />
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span>👥</span>
+                    <div className="h-5 w-24 bg-dark-border animate-pulse rounded" />
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <IconGitFork size={18} className="text-white/30" />
+                    <div className="h-5 w-16 bg-dark-border animate-pulse rounded" />
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="flex items-center gap-2">
+                    <span className="text-white font-bold">
+                      ⭐ <AnimatedNumber value={stars} /> GitHub Stars
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-white font-bold">
+                      👥 <AnimatedNumber value={contributorsCount} /> Contributors
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <IconGitFork size={18} className="text-yellow" />
+                    <span className="text-white font-bold">
+                      <AnimatedNumber value={forks} /> Forks
+                    </span>
+                  </div>
+                </>
+              )}
             </div>
 
             <Button variant="primary" href="https://github.com/lawslefthand/Marut_FCU/">VIEW ON GITHUB →</Button>

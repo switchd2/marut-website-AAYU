@@ -23,23 +23,23 @@ export default function Hero() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-7 max-w-2xl">
             <div className="text-xs font-semibold uppercase tracking-[0.2em] text-yellow leading-relaxed mb-4">
-              BUILT BY THE COMMUNITY.<br />NOT CONTROLLED BY CORPORATIONS.
+              BUILT BY THE COMMUNITY.<br />
             </div>
             <div className="w-8 h-0.5 bg-yellow mt-3 mb-8" />
-            
+
             <h1 className="text-display-sm font-unbounded font-black uppercase leading-none mb-6">
               <span className="text-white">INDIA&apos;S FIRST</span><br />
               <span className="text-white">FULLY </span><span className="text-yellow">OPEN</span><br />
               <span className="text-yellow">SOURCE</span><br />
               <span className="text-white">TRI-MODE FCU</span>
             </h1>
-            
+
             <h2 className="text-xl font-bold text-white mb-3">Under a unified architecture.</h2>
-            
+
             <p className="text-white/60 text-base leading-relaxed mb-8 max-w-lg">
               A fully open source tri-mode Flight Control Unit. All in the making by a community of passionate innovators and contributors.
             </p>
-            
+
             <div className="flex flex-wrap gap-4">
               <Button variant="primary">
                 <IconCode size={16} className="mr-2 inline" /> EXPLORE TECHNOLOGY →
@@ -52,18 +52,18 @@ export default function Hero() {
           <div className="hidden lg:flex lg:col-span-5 justify-end items-center relative">
             {/* Ambient Glow */}
             <div className="absolute inset-0 bg-yellow/5 rounded-full blur-[100px] pointer-events-none" />
-            <Image 
-              src="/pcb_image_hero.png" 
-              alt="Marut FCU PCB" 
+            <Image
+              src="/pcb_image_hero.png"
+              alt="Marut FCU PCB"
               width={500}
               height={500}
               priority
-              className="relative z-10 max-w-full max-h-[500px] h-auto object-contain select-none filter drop-shadow-[0_10px_40px_rgba(0,0,0,0.6)] hover:scale-[1.03] transition-transform duration-500" 
+              className="relative z-10 max-w-full max-h-[500px] h-auto object-contain select-none filter drop-shadow-[0_10px_40px_rgba(0,0,0,0.6)] hover:scale-[1.03] transition-transform duration-500"
             />
           </div>
         </div>
       </div>
-      
+
       <div
         className="absolute inset-y-0 right-0 w-1/2 pointer-events-none z-0 opacity-50"
         style={{

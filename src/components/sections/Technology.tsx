@@ -16,7 +16,7 @@ const modes = [
   {
     icon: IconPropeller,
     title: 'MULTIROTOR',
-    body: 'Battle-tested multirotor firmware with support for quadcopters, hexacopters, octocopters, and custom frame geometries.',
+    body: 'Proposed multirotor firmware with support for quadcopters, hexacopters and custom frame geometries.',
   },
 ]
 
@@ -24,13 +24,13 @@ export default function Technology() {
   return (
     <section id="technology" className="section-padding max-w-7xl mx-auto px-6">
       <div className="mb-16">
-        <SectionHeading 
+        <SectionHeading
           label="THE TECHNOLOGY"
           heading="One FCU. Three Modes."
           subheading="Infinite possibilities."
         />
       </div>
-      
+
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
         {modes.map((mode, idx) => {
           const Icon = mode.icon
@@ -43,7 +43,7 @@ export default function Technology() {
           )
         })}
       </div>
-      
+
       <div className="border border-dark-border rounded-lg p-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
         <p className="text-xl font-bold text-white">&quot;All three modes. One unified codebase. One community.&quot;</p>
         <Button variant="primary">EXPLORE THE ARCHITECTURE →</Button>
