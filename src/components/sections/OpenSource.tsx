@@ -72,7 +72,7 @@ export default function OpenSource() {
               <div className="w-3 h-3 rounded-full bg-[#27C93F]" />
               <div className="text-xs text-white/30 ml-2 font-mono">bash</div>
             </div>
-            <div className="p-6 font-mono text-sm leading-relaxed">
+            <div className="p-6 font-mono text-sm leading-relaxed overflow-x-auto">
               <div><span className="text-yellow">$</span> <span className="text-white">git clone https://github.com/lawslefthand/Marut_FCU.git</span></div>
               <div><span className="text-yellow">$</span> <span className="text-white">cd Marut_FCU</span></div>
               <div><span className="text-yellow">$</span> <span className="text-white">make configure TARGET=VTOL</span></div>
