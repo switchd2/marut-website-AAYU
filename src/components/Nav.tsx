@@ -58,6 +58,16 @@ export default function Nav() {
           }
         }
       }
+
+      // Proactively group the progress gallery under the OPEN SOURCE section highlight
+      const galleryElement = document.getElementById('gallery')
+      if (galleryElement) {
+        const rect = galleryElement.getBoundingClientRect()
+        if (rect.top <= threshold && rect.bottom >= threshold) {
+          currentSection = 'open-source'
+        }
+      }
+
       setActiveSection(currentSection)
     }
 
