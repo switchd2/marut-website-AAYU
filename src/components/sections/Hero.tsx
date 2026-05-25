@@ -41,7 +41,7 @@ export default function Hero() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button variant="primary">
+              <Button variant="primary" href="#technology">
                 <IconCode size={16} className="mr-2 inline" /> EXPLORE TECHNOLOGY →
               </Button>
               <Button variant="secondary" href="https://github.com/lawslefthand/Marut_FCU/">
