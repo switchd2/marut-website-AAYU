@@ -21,7 +21,7 @@ const galleryImages = [
   {
     src: '/progress/image 3.png',
     title: 'Bottom Component Layout',
-    description: 'Render displaying trace routing geometry, ground planes, and bottom-side auxiliary components designed for ease of hand-soldering and community debugging.',
+    description: 'First iteration of TH boards displaying trace routing geometry, ground planes, and bottom-side auxiliary components designed for ease of hand-soldering and community debugging.',
     badge: 'BOTTOM VIEW'
   }
 ]
