@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { usePathname } from 'next/navigation'
 import Button from '@/components/ui/Button'
 import { IconBrandGithub, IconMenu2 } from '@tabler/icons-react'
 
@@ -8,14 +9,16 @@ export default function Nav() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('home')
+  const pathname = usePathname()
+  const isHome = pathname === '/'
 
   const navItems = [
-    { href: '#', id: 'home', label: 'HOME' },
-    { href: '#technology', id: 'technology', label: 'TECHNOLOGY' },
-    { href: '#open-source', id: 'open-source', label: 'OPEN SOURCE' },
-    { href: '#roadmap', id: 'roadmap', label: 'ROADMAP' },
-    { href: '#blog', id: 'blog', label: 'BLOG' },
-    { href: '#contact', id: 'contact', label: 'CONTACT' },
+    { href: isHome ? '#' : '/', id: 'home', label: 'HOME' },
+    { href: isHome ? '#technology' : '/#technology', id: 'technology', label: 'TECHNOLOGY' },
+    { href: isHome ? '#open-source' : '/#open-source', id: 'open-source', label: 'OPEN SOURCE' },
+    { href: isHome ? '#roadmap' : '/#roadmap', id: 'roadmap', label: 'ROADMAP' },
+    { href: isHome ? '#blog' : '/#blog', id: 'blog', label: 'BLOG' },
+    { href: isHome ? '#contact' : '/#contact', id: 'contact', label: 'CONTACT' },
   ]
 
   useEffect(() => {
@@ -28,6 +31,11 @@ export default function Nav() {
       }
 
       // 2. Active section tracking based on viewport
+      if (!isHome) {
+        setActiveSection('')
+        return
+      }
+
       const sections = ['technology', 'open-source', 'roadmap', 'blog', 'contact']
       
       // If we are at the very top of the page, HOME is active
@@ -58,7 +66,7 @@ export default function Nav() {
 
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  }, [isHome])
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-colors border-b ${
