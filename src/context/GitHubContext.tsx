@@ -1,6 +1,6 @@
 'use client'
 
-import React, { createContext, useContext, useEffect, useState } from 'react'
+import React, { createContext, useContext, useMemo, useSyncExternalStore } from 'react'
 
 export interface Contributor {
   login: string
@@ -23,44 +23,96 @@ interface GitHubContextType {
 
 const GitHubContext = createContext<GitHubContextType>({
   data: null,
-  loading: true,
+  loading: false,
   error: false,
 })
 
-export function GitHubProvider({ children }: { children: React.ReactNode }) {
-  const [data, setData] = useState<GitHubData | null>(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(false)
+const fallbackGitHubData: GitHubData = {
+  stars: 13,
+  forks: 2,
+  contributorsCount: 5,
+  contributors: [
+    { login: 'lawslefthand', avatar_url: 'https://github.com/lawslefthand.png', html_url: 'https://github.com/lawslefthand' },
+  ],
+}
 
-  useEffect(() => {
-    let active = true
-    async function fetchData() {
-      try {
-        const res = await fetch('/api/github')
-        if (!res.ok) {
-          throw new Error('Failed to fetch')
-        }
-        const json = await res.json()
-        if (active) {
-          setData(json)
-          setLoading(false)
-        }
-      } catch (err) {
-        console.error('Error fetching GitHub data in client:', err)
-        if (active) {
-          setError(true)
-          setLoading(false)
-        }
+let snapshot: GitHubContextType = {
+  data: null,
+  loading: true,
+  error: false,
+}
+
+let requestStarted = false
+const listeners = new Set<() => void>()
+
+function emitChange() {
+  listeners.forEach((listener) => listener())
+}
+
+function setSnapshot(nextSnapshot: GitHubContextType) {
+  snapshot = nextSnapshot
+  emitChange()
+}
+
+function loadGitHubData() {
+  if (requestStarted) {
+    return
+  }
+
+  requestStarted = true
+
+  fetch('/api/github')
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Failed to fetch GitHub data')
       }
-    }
-    fetchData()
-    return () => {
-      active = false
-    }
-  }, [])
+
+      return response.json() as Promise<GitHubData>
+    })
+    .then((data) => {
+      setSnapshot({
+        data,
+        loading: false,
+        error: false,
+      })
+    })
+    .catch((error) => {
+      console.error('Error fetching GitHub data in client:', error)
+      setSnapshot({
+        data: fallbackGitHubData,
+        loading: false,
+        error: true,
+      })
+    })
+}
+
+function subscribe(listener: () => void) {
+  listeners.add(listener)
+  loadGitHubData()
+
+  return () => {
+    listeners.delete(listener)
+  }
+}
+
+function getSnapshot() {
+  return snapshot
+}
+
+function getServerSnapshot() {
+  return {
+    data: fallbackGitHubData,
+    loading: false,
+    error: false,
+  }
+}
+
+export function GitHubProvider({ children }: { children: React.ReactNode }) {
+  const githubState = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot)
+  const value = useMemo<GitHubContextType>(() => githubState, [githubState])
 
   return (
-    <GitHubContext.Provider value={{ data, loading, error }}>
+    <GitHubContext.Provider value={value}>
       {children}
     </GitHubContext.Provider>
   )
