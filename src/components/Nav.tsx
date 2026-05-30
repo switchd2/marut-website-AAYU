@@ -1,15 +1,24 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useReducer } from 'react'
 import { usePathname } from 'next/navigation'
+import Link from 'next/link'
 import Image from 'next/image'
 import Button from '@/components/ui/Button'
 import { IconBrandGithub, IconMenu2 } from '@tabler/icons-react'
 
+interface NavState {
+  scrolled: boolean
+  activeSection: string
+}
+
 export default function Nav() {
-  const [scrolled, setScrolled] = useState(false)
+  const [state, dispatch] = useReducer(
+    (current: NavState, next: Partial<NavState>) => ({ ...current, ...next }),
+    { scrolled: false, activeSection: 'home' }
+  )
+  const { scrolled, activeSection } = state
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [activeSection, setActiveSection] = useState('home')
   const pathname = usePathname()
   const isHome = pathname === '/'
 
@@ -24,59 +33,43 @@ export default function Nav() {
 
   useEffect(() => {
     const handleScroll = () => {
-      // 1. Scrolled state for backdrop
-      if (window.scrollY > 10) {
-        setScrolled(true)
-      } else {
-        setScrolled(false)
-      }
+      const nextScrolled = window.scrollY > 10
+      let nextActiveSection = 'home'
 
-      // 2. Active section tracking based on viewport
       if (!isHome) {
-        setActiveSection('')
-        return
-      }
+        nextActiveSection = ''
+      } else if (window.scrollY >= 120) {
+        const sections = ['technology', 'open-source', 'roadmap', 'blog', 'contact']
+        const threshold = window.innerHeight * 0.4
 
-      const sections = ['technology', 'open-source', 'roadmap', 'blog', 'contact']
-      
-      // If we are at the very top of the page, HOME is active
-      if (window.scrollY < 120) {
-        setActiveSection('home')
-        return
-      }
+        for (const sectionId of sections) {
+          const element = document.getElementById(sectionId)
+          if (element) {
+            const rect = element.getBoundingClientRect()
+            if (rect.top <= threshold && rect.bottom >= threshold) {
+              nextActiveSection = sectionId
+              break
+            }
+          }
+        }
 
-      // Check which section occupies the main viewport area (40% from top)
-      let currentSection = 'home'
-      const threshold = window.innerHeight * 0.4
-
-      for (const sectionId of sections) {
-        const element = document.getElementById(sectionId)
-        if (element) {
-          const rect = element.getBoundingClientRect()
+        const galleryElement = document.getElementById('gallery')
+        if (galleryElement) {
+          const rect = galleryElement.getBoundingClientRect()
           if (rect.top <= threshold && rect.bottom >= threshold) {
-            currentSection = sectionId
-            break
+            nextActiveSection = 'open-source'
           }
         }
       }
 
-      // Proactively group the progress gallery under the OPEN SOURCE section highlight
-      const galleryElement = document.getElementById('gallery')
-      if (galleryElement) {
-        const rect = galleryElement.getBoundingClientRect()
-        if (rect.top <= threshold && rect.bottom >= threshold) {
-          currentSection = 'open-source'
-        }
-      }
-
-      setActiveSection(currentSection)
+      dispatch({ scrolled: nextScrolled, activeSection: nextActiveSection })
     }
 
     // Establish initial active state on load
     handleScroll()
 
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll, { passive: true })
   }, [isHome])
 
   return (
@@ -84,14 +77,14 @@ export default function Nav() {
       scrolled ? 'bg-dark/80 backdrop-blur-sm border-dark-border' : 'bg-dark/80 backdrop-blur-sm border-transparent'
     }`}>
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-        <a href="/" className="inline-flex items-center gap-2">
+        <Link href="/" className="inline-flex items-center gap-2">
           <Image src="/marut_logo.png" alt="Marut FCU Logo" width={28} height={28} className="object-contain" />
           <span className="font-black uppercase tracking-widest text-white text-lg">MARUT</span>
-        </a>
+        </Link>
 
         <div className="hidden md:flex items-center gap-6">
           {navItems.map((item) => (
-            <a
+            <Link
               key={item.id}
               href={item.href}
               className={`text-xs font-semibold uppercase tracking-widest transition-colors pb-0.5 border-b-2 ${
@@ -101,7 +94,7 @@ export default function Nav() {
               }`}
             >
               {item.label}
-            </a>
+            </Link>
           ))}
         </div>
 
@@ -112,6 +105,7 @@ export default function Nav() {
         </div>
 
         <button 
+          type="button"
           className="md:hidden text-white"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         >
@@ -122,7 +116,7 @@ export default function Nav() {
       {mobileMenuOpen && (
         <div className="bg-dark-surface border-b border-dark-border px-6 py-4 flex flex-col gap-4 md:hidden">
           {navItems.map((item) => (
-            <a
+            <Link
               key={item.id}
               href={item.href}
               onClick={() => setMobileMenuOpen(false)}
@@ -133,7 +127,7 @@ export default function Nav() {
               }`}
             >
               {item.label}
-            </a>
+            </Link>
           ))}
           <div className="mt-2">
             <Button variant="secondary" href="https://github.com/lawslefthand/Marut_FCU/">
