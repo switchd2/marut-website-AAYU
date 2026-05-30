@@ -8,64 +8,64 @@ import Button from '@/components/ui/Button'
 import SectionHeading from '@/components/ui/SectionHeading'
 import { IconCpu, IconStack, IconDownload, IconExternalLink, IconInfoCircle } from '@tabler/icons-react'
 
+const layersInfo = {
+  top: {
+    name: 'Top Silkscreen & Assembly',
+    desc: 'Visualizes the placement of main discrete ICs (STM32, ICM IMU, BMP Baro), passives, and connector pinouts on the top copper layer.',
+    effect: 'brightness-[0.9] contrast-[1.1] hue-rotate-[120deg] saturate-[1.5]'
+  },
+  bottom: {
+    name: 'Bottom Components',
+    desc: 'Shows components mounted on the back of the board, including standard pin headers, solder pads, and telemetry headers.',
+    effect: 'grayscale invert contrast-[1.2] opacity-75'
+  },
+  power: {
+    name: 'Power Planes & Ground Fill',
+    desc: 'Highlights the heavy-duty 5V and 3.3V power routing grids along with the continuous ground planes configured to suppress EMI.',
+    effect: 'hue-rotate-[240deg] invert brightness-[0.7] saturate-[2]'
+  },
+  traces: {
+    name: 'Inner Layer Differential Signal Traces',
+    desc: 'Displays the high-speed SPI, I2C, and UART signal track geometries routed on internal board layer planes.',
+    effect: 'sepia contrast-[1.5] brightness-[0.8] saturate-[3]'
+  }
+}
+
+const pinouts = {
+  uart1: {
+    title: 'UART1 (RC Receiver Connection)',
+    pinout: [
+      { pin: '5V', desc: 'Power supply for RC Receiver' },
+      { pin: 'GND', desc: 'Ground return' },
+      { pin: 'PA10 (RX1)', desc: 'SBUS / IBUS / CRSF signal input (inverted internally for SBUS)' },
+      { pin: 'PA9 (TX1)', desc: 'SmartPort / Telemetry output' }
+    ]
+  },
+  uart3: {
+    title: 'UART3 & I2C1 (GPS & Compass)',
+    pinout: [
+      { pin: '5V', desc: 'GPS module power supply' },
+      { pin: 'GND', desc: 'Ground return' },
+      { pin: 'PB11 (RX3)', desc: 'GPS RX coordinate transfer' },
+      { pin: 'PB10 (TX3)', desc: 'GPS TX configuration' },
+      { pin: 'PB6 (SCL1)', desc: 'I2C Clock for external magnetometer' },
+      { pin: 'PB7 (SDA1)', desc: 'I2C Data for external magnetometer' }
+    ]
+  },
+  motors: {
+    title: 'PWM / DSHOT (Motor Connectors)',
+    pinout: [
+      { pin: 'M1 (PA0)', desc: 'Motor 1 ESC controller signal (PWM channel 1 / DSHOT)' },
+      { pin: 'M2 (PA1)', desc: 'Motor 2 ESC controller signal (PWM channel 2 / DSHOT)' },
+      { pin: 'M3 (PA2)', desc: 'Motor 3 ESC controller signal (PWM channel 3 / DSHOT)' },
+      { pin: 'M4 (PA3)', desc: 'Motor 4 ESC controller signal (PWM channel 4 / DSHOT)' }
+    ]
+  }
+}
+
 export default function SchematicsClient() {
   const [activeLayer, setActiveLayer] = useState<'top' | 'bottom' | 'power' | 'traces'>('top')
   const [activePort, setActivePort] = useState<string>('uart1')
-
-  const layersInfo = {
-    top: {
-      name: 'Top Silkscreen & Assembly',
-      desc: 'Visualizes the placement of main discrete ICs (STM32, ICM IMU, BMP Baro), passives, and connector pinouts on the top copper layer.',
-      effect: 'brightness-[0.9] contrast-[1.1] hue-rotate-[120deg] saturate-[1.5]'
-    },
-    bottom: {
-      name: 'Bottom Components',
-      desc: 'Shows components mounted on the back of the board, including standard pin headers, solder pads, and telemetry headers.',
-      effect: 'grayscale invert contrast-[1.2] opacity-75'
-    },
-    power: {
-      name: 'Power Planes & Ground Fill',
-      desc: 'Highlights the heavy-duty 5V and 3.3V power routing grids along with the continuous ground planes configured to suppress EMI.',
-      effect: 'hue-rotate-[240deg] invert brightness-[0.7] saturate-[2]'
-    },
-    traces: {
-      name: 'Inner Layer Differential Signal Traces',
-      desc: 'Displays the high-speed SPI, I2C, and UART signal track geometries routed on internal board layer planes.',
-      effect: 'sepia contrast-[1.5] brightness-[0.8] saturate-[3]'
-    }
-  }
-
-  const pinouts = {
-    uart1: {
-      title: 'UART1 (RC Receiver Connection)',
-      pinout: [
-        { pin: '5V', desc: 'Power supply for RC Receiver' },
-        { pin: 'GND', desc: 'Ground return' },
-        { pin: 'PA10 (RX1)', desc: 'SBUS / IBUS / CRSF signal input (inverted internally for SBUS)' },
-        { pin: 'PA9 (TX1)', desc: 'SmartPort / Telemetry output' }
-      ]
-    },
-    uart3: {
-      title: 'UART3 & I2C1 (GPS & Compass)',
-      pinout: [
-        { pin: '5V', desc: 'GPS module power supply' },
-        { pin: 'GND', desc: 'Ground return' },
-        { pin: 'PB11 (RX3)', desc: 'GPS RX coordinate transfer' },
-        { pin: 'PB10 (TX3)', desc: 'GPS TX configuration' },
-        { pin: 'PB6 (SCL1)', desc: 'I2C Clock for external magnetometer' },
-        { pin: 'PB7 (SDA1)', desc: 'I2C Data for external magnetometer' }
-      ]
-    },
-    motors: {
-      title: 'PWM / DSHOT (Motor Connectors)',
-      pinout: [
-        { pin: 'M1 (PA0)', desc: 'Motor 1 ESC controller signal (PWM channel 1 / DSHOT)' },
-        { pin: 'M2 (PA1)', desc: 'Motor 2 ESC controller signal (PWM channel 2 / DSHOT)' },
-        { pin: 'M3 (PA2)', desc: 'Motor 3 ESC controller signal (PWM channel 3 / DSHOT)' },
-        { pin: 'M4 (PA3)', desc: 'Motor 4 ESC controller signal (PWM channel 4 / DSHOT)' }
-      ]
-    }
-  }
 
   return (
     <main className="bg-dark text-white min-h-screen flex flex-col justify-between">
