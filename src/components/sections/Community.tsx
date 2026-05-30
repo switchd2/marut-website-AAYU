@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Image from 'next/image'
 import SectionHeading from '@/components/ui/SectionHeading'
 import Button from '@/components/ui/Button'
 import { IconCode, IconBug, IconShare, IconUser } from '@tabler/icons-react'
@@ -72,14 +73,15 @@ export default function Community() {
         </a>
 
         {/* Card 3: SPREAD THE WORD */}
-        <div 
+        <button
+          type="button"
           onClick={handleShareClick}
           className="bg-dark-card border border-dark-border rounded-lg p-8 text-center block hover:border-yellow/40 hover:shadow-[0_0_20px_rgba(0,255,85,0.15)] hover:scale-[1.02] transition-all duration-300 cursor-pointer"
         >
           <IconShare size={32} className="text-yellow mb-5 mx-auto" />
           <h3 className="text-xs font-bold uppercase tracking-widest text-white mb-3">SPREAD THE WORD</h3>
           <p className="text-sm text-white/50 leading-relaxed">Star the repo. Tell your community. Help the project grow.</p>
-        </div>
+        </button>
       </div>
       
       <div className="text-sm font-semibold uppercase tracking-widest text-white/40 mb-6 text-center">
@@ -89,7 +91,7 @@ export default function Community() {
       <div className="flex flex-wrap justify-center gap-3 mb-8 max-w-4xl mx-auto min-h-[40px]">
         {loading ? (
           Array.from({ length: 12 }).map((_, idx) => (
-            <div key={idx} className="w-10 h-10 rounded-full bg-dark-surface border border-dark-border flex items-center justify-center animate-pulse">
+            <div key={`contributor-skeleton-${idx}`} className="size-10 rounded-full bg-dark-surface border border-dark-border flex items-center justify-center animate-pulse">
               <IconUser size={16} className="text-white/20" />
             </div>
           ))
@@ -100,10 +102,9 @@ export default function Community() {
                 href={c.html_url} 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="block w-10 h-10 rounded-full overflow-hidden border border-dark-border hover:border-yellow hover:scale-110 transition-all duration-200"
+                className="block size-10 rounded-full overflow-hidden border border-dark-border hover:border-yellow hover:scale-110 transition-all duration-200"
               >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                <Image
                   src={c.avatar_url}
                   alt={c.login}
                   width={40}
@@ -133,8 +134,9 @@ export default function Community() {
               <h3 className="text-sm font-unbounded font-black uppercase tracking-wider text-yellow">
                 Spread the word
               </h3>
-              <button 
+              <button type="button" 
                 onClick={() => setIsShareOpen(false)}
+                aria-label="Close share dialog"
                 className="text-white/40 hover:text-white transition-colors text-lg"
               >
                 ✕
@@ -150,12 +152,14 @@ export default function Community() {
             <div className="flex border border-dark-border rounded bg-dark-surface p-1 mb-6 items-center">
               <input 
                 type="text" 
+                aria-label="GitHub repository link"
                 readOnly 
                 value="https://github.com/lawslefthand/Marut_FCU"
                 className="bg-transparent text-xs text-white/85 px-3 py-2 flex-1 outline-none font-mono"
               />
-              <button 
+              <button type="button" 
                 onClick={handleCopyLink}
+                aria-label="Copy GitHub repository link"
                 className="text-xs font-bold uppercase tracking-wider bg-yellow text-dark px-4 py-2 rounded hover:bg-yellow-hover transition-colors"
               >
                 {copied ? 'Copied!' : 'Copy'}
