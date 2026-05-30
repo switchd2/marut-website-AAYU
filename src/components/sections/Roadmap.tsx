@@ -41,23 +41,21 @@ const hwTrack: TrackItem[] = [
   { status: 'planned', title: 'Indigenization of components' },
 ]
 
-export default function Roadmap() {
-  const renderSubTrack = (items: TrackItem[]) => (
+function SubTrack({ items }: { items: TrackItem[] }) {
+  return (
     <div className="flex flex-col gap-3">
-      {items.map((item, idx) => (
-        <div key={idx} className={`p-3.5 rounded border flex items-start gap-3 transition-all duration-300 ${
+      {items.map((item) => (
+        <div key={item.title} className={`p-3.5 rounded border flex items-start gap-3 transition-all duration-300 ${
           item.status === 'in-progress' 
             ? 'bg-yellow/5 border-yellow shadow-[0_0_15px_rgba(0,255,85,0.08)]' 
             : 'bg-dark-surface/40 border-dark-border/40'
         }`}>
-          {/* Status Indicator (Square) */}
           <div className={`flex-shrink-0 w-3.5 h-3.5 mt-0.5 rounded-sm border flex items-center justify-center bg-dark ${
             item.status === 'in-progress' ? 'border-yellow animate-pulse' : 'border-dark-border'
           }`}>
-            {item.status === 'in-progress' && <div className="w-1.5 h-1.5 bg-yellow rounded-sm" />}
+            {item.status === 'in-progress' && <div className="size-1.5 bg-yellow rounded-sm" />}
           </div>
           
-          {/* Content */}
           <div className="flex-1">
             <div className="flex items-center gap-2 flex-wrap">
               <h4 className={`text-xs font-bold uppercase tracking-wider ${
@@ -83,7 +81,9 @@ export default function Roadmap() {
       ))}
     </div>
   )
+}
 
+export default function Roadmap() {
   return (
     <section id="roadmap" className="section-padding bg-dark-surface border-t border-dark-border">
       <div className="max-w-7xl mx-auto px-6">
@@ -108,13 +108,13 @@ export default function Roadmap() {
                 <h4 className="text-[10px] font-black uppercase tracking-[0.15em] text-white/50 mb-4 border-b border-dark-border/40 pb-2">
                   Quad / Multirotor
                 </h4>
-                {renderSubTrack(quadTrack)}
+                <SubTrack items={quadTrack} />
               </div>
               <div>
                 <h4 className="text-[10px] font-black uppercase tracking-[0.15em] text-white/50 mb-4 border-b border-dark-border/40 pb-2">
                   Fixed Wing
                 </h4>
-                {renderSubTrack(fwTrack)}
+                <SubTrack items={fwTrack} />
               </div>
             </div>
 
@@ -128,7 +128,7 @@ export default function Roadmap() {
 
             {/* Merged Timeline Track */}
             <div className="mt-4">
-              {renderSubTrack(mergedTrack)}
+              <SubTrack items={mergedTrack} />
             </div>
           </div>
 
@@ -140,8 +140,8 @@ export default function Roadmap() {
             </div>
 
             <div className="flex flex-col gap-3">
-              {hwTrack.map((item, idx) => (
-                <div key={idx} className={`p-3.5 rounded border flex items-center gap-3 transition-all duration-300 ${
+              {hwTrack.map((item) => (
+                <div key={item.title} className={`p-3.5 rounded border flex items-center gap-3 transition-all duration-300 ${
                   item.status === 'in-progress'
                     ? 'bg-yellow/5 border-yellow shadow-[0_0_15px_rgba(0,255,85,0.08)] scale-[1.01]'
                     : item.status === 'done'
@@ -149,13 +149,13 @@ export default function Roadmap() {
                     : 'bg-dark-surface/5 border-dark-border/10'
                 }`}>
                   {/* Status Indicator (Square) */}
-                  <div className={`flex-shrink-0 w-4 h-4 rounded-sm border flex items-center justify-center bg-dark ${
+                  <div className={`flex-shrink-0 size-4 rounded-sm border flex items-center justify-center bg-dark ${
                     item.status === 'done' ? 'border-yellow bg-yellow' :
                     item.status === 'in-progress' ? 'border-yellow animate-pulse' :
                     'border-dark-border'
                   }`}>
                     {item.status === 'done' && <IconCheck size={10} className="text-dark font-black" />}
-                    {item.status === 'in-progress' && <div className="w-1.5 h-1.5 bg-yellow rounded-sm" />}
+                    {item.status === 'in-progress' && <div className="size-1.5 bg-yellow rounded-sm" />}
                   </div>
 
                   {/* Content card */}
