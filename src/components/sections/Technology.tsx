@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
+import Link from 'next/link'
 import SectionHeading from '@/components/ui/SectionHeading'
 import Button from '@/components/ui/Button'
 import { IconPlane, IconDrone, IconPropeller, IconChevronDown } from '@tabler/icons-react'
@@ -48,10 +49,10 @@ export default function Technology() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-        {modes.map((mode, idx) => {
+        {modes.map((mode) => {
           const Icon = mode.icon
           return (
-            <div key={idx} className="relative bg-dark-card border border-dark-border rounded-lg p-8 group hover:border-yellow/40 hover:shadow-[0_0_20px_rgba(0,255,85,0.15)] transition-all duration-300">
+            <div key={mode.title} className="relative bg-dark-card border border-dark-border rounded-lg p-8 group hover:border-yellow/40 hover:shadow-[0_0_20px_rgba(0,255,85,0.15)] transition-all duration-300">
               <Icon size={32} className="text-yellow mb-6" />
               <h3 className="text-xs font-bold uppercase tracking-widest text-white mb-4">{mode.title}</h3>
               <p className="text-sm text-white/50 leading-relaxed">{mode.body}</p>
@@ -70,24 +71,24 @@ export default function Technology() {
 
           {dropdownOpen && (
             <div className="absolute right-0 bottom-full md:bottom-auto md:top-full mb-3 md:mb-0 md:mt-2 w-full sm:w-56 bg-dark-card border border-dark-border rounded shadow-[0_4px_25px_rgba(0,0,0,0.9)] z-20 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
-              <a 
+              <Link 
                 href="/firmware" 
                 className="block px-5 py-3.5 text-xs font-bold uppercase tracking-widest text-white/80 hover:text-yellow hover:bg-dark-surface/50 border-b border-dark-border transition-colors"
               >
                 Firmware Suite
-              </a>
-              <a 
+              </Link>
+              <Link 
                 href="/schematics" 
                 className="block px-5 py-3.5 text-xs font-bold uppercase tracking-widest text-white/80 hover:text-yellow hover:bg-dark-surface/50 border-b border-dark-border transition-colors"
               >
                 PCB Schematics
-              </a>
-              <a 
+              </Link>
+              <Link 
                 href="/documentation" 
                 className="block px-5 py-3.5 text-xs font-bold uppercase tracking-widest text-white/80 hover:text-yellow hover:bg-dark-surface/50 transition-colors"
               >
                 Documentation
-              </a>
+              </Link>
             </div>
           )}
         </div>
