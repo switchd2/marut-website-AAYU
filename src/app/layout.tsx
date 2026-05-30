@@ -17,6 +17,9 @@ const unbounded = Unbounded({
 export const metadata: Metadata = {
   title: 'Marut FCU — India\'s First Fully Open Source Tri-Mode Flight Control Unit',
   description: 'A fully open source tri-mode Flight Control Unit. Built by the community. Not controlled by corporations.',
+  icons: {
+    icon: '/marut_logo.png',
+  },
 }
 
 export default function RootLayout({
