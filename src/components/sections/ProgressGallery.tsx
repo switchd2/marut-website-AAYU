@@ -83,12 +83,14 @@ export default function ProgressGallery() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {galleryImages.map((image, idx) => (
             <div 
-              key={idx} 
+              key={image.src} 
               className="group bg-dark-card border border-dark-border rounded-lg overflow-hidden flex flex-col transition-all duration-300 hover:border-yellow/40 hover:shadow-[0_0_20px_rgba(0,255,85,0.05)]"
             >
               {/* Image container */}
-              <div 
-                className="relative h-64 w-full overflow-hidden bg-black/40 cursor-pointer"
+              <button
+                type="button"
+                aria-label={`Open ${image.title} in full view`}
+                className="relative h-64 w-full overflow-hidden bg-gray-950/40 cursor-pointer"
                 onClick={() => openLightbox(idx)}
               >
                 <Image
@@ -99,7 +101,7 @@ export default function ProgressGallery() {
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                   priority={idx === 0}
                 />
-                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                <div className="absolute inset-0 bg-gray-950/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                   <div className="flex items-center gap-2 text-yellow font-semibold tracking-wider text-xs uppercase bg-dark/80 px-4 py-2 rounded border border-yellow/30">
                     <IconMaximize size={14} /> EXAMINE
                   </div>
@@ -108,7 +110,7 @@ export default function ProgressGallery() {
                 <div className="absolute top-4 left-4 bg-yellow text-dark text-[10px] font-black uppercase tracking-widest px-2 py-0.5 rounded">
                   {image.badge}
                 </div>
-              </div>
+              </button>
 
               {/* Text content */}
               <div className="p-6 flex-1 flex flex-col">
@@ -119,6 +121,7 @@ export default function ProgressGallery() {
                   {image.description}
                 </p>
                 <button
+                    type="button"
                   onClick={() => openLightbox(idx)}
                   className="text-yellow text-xs font-bold uppercase tracking-widest flex items-center gap-1.5 hover:text-yellow-hover transition-colors w-fit pt-2 mt-auto"
                 >
@@ -132,7 +135,7 @@ export default function ProgressGallery() {
 
       {/* Lightbox Modal */}
       {lightboxIndex !== null && (
-        <div className="fixed inset-0 z-50 bg-black/95 backdrop-blur-sm flex flex-col justify-between p-6">
+        <div className="fixed inset-0 z-50 bg-gray-950/95 backdrop-blur-sm flex flex-col justify-between p-6">
           {/* Header */}
           <div className="flex items-center justify-between text-white max-w-7xl mx-auto w-full">
             <div>
@@ -143,8 +146,9 @@ export default function ProgressGallery() {
                 {galleryImages[lightboxIndex].title}
               </h4>
             </div>
-            <button 
+            <button type="button" 
               onClick={closeLightbox}
+              aria-label="Close image lightbox"
               className="text-white/60 hover:text-white bg-dark-surface p-2 rounded-full border border-dark-border transition-colors"
             >
               <IconX size={24} />
@@ -155,7 +159,9 @@ export default function ProgressGallery() {
           <div className="flex items-center justify-between max-w-7xl mx-auto w-full flex-1 my-4 gap-4 relative">
             {/* Left Nav */}
             <button
+                    type="button"
               onClick={() => navigateLightbox('prev')}
+              aria-label="View previous image"
               className="hidden sm:flex text-white bg-dark-surface/80 hover:bg-yellow hover:text-dark p-3 rounded-full border border-dark-border hover:border-yellow transition-all items-center justify-center z-10"
             >
               <IconChevronLeft size={24} />
@@ -175,7 +181,9 @@ export default function ProgressGallery() {
 
             {/* Right Nav */}
             <button
+                    type="button"
               onClick={() => navigateLightbox('next')}
+              aria-label="View next image"
               className="hidden sm:flex text-white bg-dark-surface/80 hover:bg-yellow hover:text-dark p-3 rounded-full border border-dark-border hover:border-yellow transition-all items-center justify-center z-10"
             >
               <IconChevronRight size={24} />
@@ -189,13 +197,13 @@ export default function ProgressGallery() {
             </p>
             {/* Mobile swipe/nav hint */}
             <div className="flex sm:hidden justify-center gap-6 mt-4">
-              <button 
+              <button type="button" 
                 onClick={() => navigateLightbox('prev')}
                 className="flex items-center gap-1 text-xs font-bold tracking-widest text-yellow uppercase"
               >
                 <IconChevronLeft size={16} /> PREV
               </button>
-              <button 
+              <button type="button" 
                 onClick={() => navigateLightbox('next')}
                 className="flex items-center gap-1 text-xs font-bold tracking-widest text-yellow uppercase"
               >
