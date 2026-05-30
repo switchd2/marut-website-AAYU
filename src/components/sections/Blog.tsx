@@ -1,4 +1,5 @@
 import SectionHeading from '@/components/ui/SectionHeading'
+import Link from 'next/link'
 
 const posts = [
   {
@@ -35,8 +36,8 @@ export default function Blog() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {posts.map((post, idx) => (
-          <div key={idx} className="bg-dark-card border border-dark-border rounded-lg p-8 flex flex-col">
+        {posts.map((post) => (
+          <div key={post.title} className="bg-dark-card border border-dark-border rounded-lg p-8 flex flex-col">
             <div className="inline-block text-xs font-bold uppercase tracking-widest text-yellow border border-yellow/30 rounded px-2 py-1 mb-4 w-fit">
               {post.category}
             </div>
@@ -47,9 +48,9 @@ export default function Blog() {
             <p className="text-white/50 text-sm leading-relaxed flex-1 mb-6">
               {post.excerpt}
             </p>
-            <a href="#" className="text-yellow text-sm font-semibold uppercase tracking-wide hover:text-yellow-hover transition-colors mt-auto">
+            <Link href="/documentation" className="text-yellow text-sm font-semibold uppercase tracking-wide hover:text-yellow-hover transition-colors mt-auto">
               READ MORE →
-            </a>
+            </Link>
           </div>
         ))}
       </div>
