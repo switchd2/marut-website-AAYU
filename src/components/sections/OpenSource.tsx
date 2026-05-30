@@ -67,9 +67,9 @@ export default function OpenSource() {
 
           <div className="bg-dark rounded-lg border border-dark-border overflow-hidden">
             <div className="bg-dark-surface border-b border-dark-border px-4 py-3 flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-[#FF5F56]" />
-              <div className="w-3 h-3 rounded-full bg-[#FFBD2E]" />
-              <div className="w-3 h-3 rounded-full bg-[#27C93F]" />
+              <div className="size-3 rounded-full bg-[#FF5F56]" />
+              <div className="size-3 rounded-full bg-[#FFBD2E]" />
+              <div className="size-3 rounded-full bg-[#27C93F]" />
               <div className="text-xs text-white/30 ml-2 font-mono">bash</div>
             </div>
             <div className="p-6 font-mono text-sm leading-relaxed overflow-x-auto">
