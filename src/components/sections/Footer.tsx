@@ -8,7 +8,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-2 gap-12">
         <div>
           <Link href="/" className="inline-flex items-center gap-2">
-            <Image src="/marut_logo.png" alt="Marut FCU Logo" width={28} height={28} className="object-contain" />
+            <Image src="/assets/marut_logo.png" alt="Marut FCU Logo" width={28} height={28} className="object-contain" />
             <span className="font-black uppercase tracking-widest text-white text-lg">MARUT</span>
           </Link>
           <p className="text-white/40 text-sm mt-4 max-w-xs leading-relaxed">
