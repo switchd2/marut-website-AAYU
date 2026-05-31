@@ -8,7 +8,7 @@ export default function Hero() {
       {/* Background Backdrop Image */}
       <div className="absolute inset-0 z-0 select-none pointer-events-none opacity-40">
         <Image
-          src="/backdrop.png"
+          src="/assets/backdrop.png"
           alt="Hero Backdrop"
           fill
           sizes="100vw"
@@ -54,7 +54,7 @@ export default function Hero() {
             {/* Ambient Glow */}
             <div className="absolute inset-0 bg-yellow/5 rounded-full blur-[100px] pointer-events-none" />
             <Image
-              src="/pcb_image_hero.png"
+              src="/assets/pcb_image_hero.png"
               alt="Marut FCU PCB"
               width={640}
               height={640}
