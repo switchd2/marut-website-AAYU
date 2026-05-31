@@ -44,10 +44,6 @@ const buildSteps = [
     title: 'Bottomside Layer'
   },
   {
-    image: '/scroll_build/5_other_layers.png',
-    title: 'Other Layers'
-  },
-  {
     image: '/scroll_build/6_final_board.png',
     title: 'Final Board'
   }
@@ -116,16 +112,10 @@ export default function SchematicsClient() {
       .to('.scroll-build-image-4', { opacity: 1, scale: 1, duration: 1 }, '<')
       .to({}, { duration: 1.5 }) // Hold
 
-    // Step 5: Other Layers
+    // Step 5: Final Board
     tl.to('.scroll-build-step-4', { opacity: 0, y: -30, pointerEvents: 'none', duration: 1 })
       .to('.scroll-build-step-5', { opacity: 1, y: 0, pointerEvents: 'auto', duration: 1 }, '<')
       .to('.scroll-build-image-5', { opacity: 1, scale: 1, duration: 1 }, '<')
-      .to({}, { duration: 1.5 }) // Hold
-
-    // Step 6: Final Board
-    tl.to('.scroll-build-step-5', { opacity: 0, y: -30, pointerEvents: 'none', duration: 1 })
-      .to('.scroll-build-step-6', { opacity: 1, y: 0, pointerEvents: 'auto', duration: 1 }, '<')
-      .to('.scroll-build-image-6', { opacity: 1, scale: 1, duration: 1 }, '<')
       .to({}, { duration: 1.5 }) // Hold
 
     // Progress percentage
@@ -261,7 +251,7 @@ export default function SchematicsClient() {
                     className={`absolute inset-x-6 md:inset-x-8 flex flex-col justify-center scroll-build-step scroll-build-step-${idx}`}
                   >
                     <div className="text-yellow text-[10px] font-black tracking-widest uppercase mb-2 font-mono">
-                      STAGE 0{idx + 1} / 07
+                      STAGE 0{idx + 1} / 06
                     </div>
                     <h3 className="text-xl md:text-2xl font-unbounded font-black uppercase text-white mb-3">
                       {step.title}
