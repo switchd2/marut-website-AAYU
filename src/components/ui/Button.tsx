@@ -6,9 +6,12 @@ type ButtonProps = {
   children: React.ReactNode
   href?: string
   onClick?: () => void
+  download?: boolean | string
+  target?: string
+  rel?: string
 }
 
-export default function Button({ variant, children, href, onClick }: ButtonProps) {
+export default function Button({ variant, children, href, onClick, download, target, rel }: ButtonProps) {
   const baseClasses = "rounded px-6 py-3 text-sm font-semibold uppercase tracking-widest transition-colors inline-block text-center w-full sm:w-auto"
   
   const variantClasses = variant === 'primary' 
@@ -18,16 +21,16 @@ export default function Button({ variant, children, href, onClick }: ButtonProps
   const classes = `${baseClasses} ${variantClasses}`
   
   if (href) {
-    if (href.startsWith('/')) {
+    if (href.startsWith('/') && !download) {
       return (
-        <Link href={href} className={classes} onClick={onClick}>
+        <Link href={href} className={classes} onClick={onClick} target={target} rel={rel}>
           {children}
         </Link>
       )
     }
 
     return (
-      <a href={href} className={classes} onClick={onClick}>
+      <a href={href} className={classes} onClick={onClick} download={download} target={target} rel={rel}>
         {children}
       </a>
     )
