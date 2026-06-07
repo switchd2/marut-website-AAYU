@@ -167,15 +167,7 @@ export default function Community() {
             </div>
 
             {/* Social Share Buttons */}
-            <div className="grid grid-cols-2 gap-3">
-              <a 
-                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent("Check out Marut FCU, India's first fully open-source tri-mode Flight Control Unit! ✈️🛸")}&url=${encodeURIComponent("https://github.com/lawslefthand/Marut_FCU")}`}
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 border border-dark-border rounded py-2.5 px-3 hover:border-yellow/30 hover:bg-yellow/5 transition-all text-xs font-bold uppercase tracking-wider text-white"
-              >
-                Share on X
-              </a>
+            <div>
               <a 
                 href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent("https://github.com/lawslefthand/Marut_FCU")}`}
                 target="_blank" 

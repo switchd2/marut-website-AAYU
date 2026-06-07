@@ -1,4 +1,4 @@
-import { IconBrandGithub, IconBrandX } from '@tabler/icons-react'
+import { IconBrandGithub } from '@tabler/icons-react'
 import Link from 'next/link'
 
 export default function Footer() {
@@ -14,7 +14,6 @@ export default function Footer() {
           </p>
           <div className="flex gap-4 mt-6">
             <a href="https://github.com/lawslefthand/Marut_FCU/" target="_blank" rel="noopener noreferrer"><IconBrandGithub size={20} className="text-white/40 hover:text-white transition-colors" /></a>
-            <a href="https://x.com" target="_blank" rel="noopener noreferrer" aria-label="Marut FCU on X"><IconBrandX size={20} className="text-white/40 hover:text-white transition-colors" /></a>
           </div>
         </div>
 
