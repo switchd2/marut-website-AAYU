@@ -178,53 +178,60 @@ export default function Nav() {
       </div>
 
       {mobileMenuOpen && (
-        <div className="bg-dark-surface border-b border-dark-border px-6 py-4 flex flex-col gap-4 md:hidden">
-          {navItems.map((item) => {
-            if (item.isDropdown) {
-              return (
-                <div key={item.id} className="flex flex-col gap-2">
-                  <div className={`text-[10px] font-bold uppercase tracking-widest ${
-                    activeSection === item.id ? 'text-yellow' : 'text-white/40'
-                  }`}>
-                    {item.label}
+        <>
+          {/* Backdrop to collapse when clicking empty space below menu */}
+          <div 
+            className="fixed inset-0 top-16 bg-black/60 md:hidden z-40"
+            onClick={() => setMobileMenuOpen(false)}
+          />
+          <div className="relative z-50 bg-dark-surface border-b border-dark-border px-6 py-4 flex flex-col gap-4 md:hidden">
+            {navItems.map((item) => {
+              if (item.isDropdown) {
+                return (
+                  <div key={item.id} className="flex flex-col gap-2">
+                    <div className={`text-[10px] font-bold uppercase tracking-widest ${
+                      activeSection === item.id ? 'text-yellow' : 'text-white/40'
+                    }`}>
+                      {item.label}
+                    </div>
+                    <div className="pl-4 flex flex-col gap-3 border-l border-dark-border">
+                      {item.dropdownItems?.map((sub) => (
+                        <Link
+                          key={sub.href}
+                          href={sub.href}
+                          onClick={() => setMobileMenuOpen(false)}
+                          className="text-xs font-semibold uppercase tracking-widest text-white/70 hover:text-white transition-colors"
+                        >
+                          {sub.label}
+                        </Link>
+                      ))}
+                    </div>
                   </div>
-                  <div className="pl-4 flex flex-col gap-3 border-l border-dark-border">
-                    {item.dropdownItems?.map((sub) => (
-                      <Link
-                        key={sub.href}
-                        href={sub.href}
-                        onClick={() => setMobileMenuOpen(false)}
-                        className="text-xs font-semibold uppercase tracking-widest text-white/70 hover:text-white transition-colors"
-                      >
-                        {sub.label}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              )
-            }
+                )
+              }
 
-            return (
-              <Link
-                key={item.id}
-                href={item.href!}
-                onClick={() => setMobileMenuOpen(false)}
-                className={`text-xs font-semibold uppercase tracking-widest transition-colors pb-0.5 border-b-2 w-fit ${
-                  activeSection === item.id
-                    ? 'text-white border-yellow font-bold'
-                    : 'text-white/70 hover:text-white border-transparent'
-                }`}
-              >
-                {item.label}
-              </Link>
-            )
-          })}
-          <div className="mt-2">
-            <Button variant="secondary" href="https://github.com/lawslefthand/Marut_FCU/">
-              <IconBrandGithub size={16} className="mr-2 inline" /> GITHUB
-            </Button>
+              return (
+                <Link
+                  key={item.id}
+                  href={item.href!}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`text-xs font-semibold uppercase tracking-widest transition-colors pb-0.5 border-b-2 w-fit ${
+                    activeSection === item.id
+                      ? 'text-white border-yellow font-bold'
+                      : 'text-white/70 hover:text-white border-transparent'
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              )
+            })}
+            <div className="mt-2">
+              <Button variant="secondary" href="https://github.com/lawslefthand/Marut_FCU/">
+                <IconBrandGithub size={16} className="mr-2 inline" /> GITHUB
+              </Button>
+            </div>
           </div>
-        </div>
+        </>
       )}
     </nav>
   )
