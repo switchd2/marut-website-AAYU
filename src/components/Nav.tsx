@@ -180,8 +180,10 @@ export default function Nav() {
       {mobileMenuOpen && (
         <>
           {/* Backdrop to collapse when clicking empty space below menu */}
-          <div 
-            className="fixed inset-0 top-16 bg-black/60 md:hidden z-40"
+          <button 
+            type="button"
+            aria-label="Close menu"
+            className="fixed inset-0 top-16 bg-black/60 md:hidden z-40 cursor-default w-full text-left"
             onClick={() => setMobileMenuOpen(false)}
           />
           <div className="relative z-50 bg-dark-surface border-b border-dark-border px-6 py-4 flex flex-col gap-4 md:hidden">
