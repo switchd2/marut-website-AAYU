@@ -1,2 +1,9 @@
 allowBuilds:
+  sharp: set this to true or false
   unrs-resolver: set this to true or false
+
+minimumReleaseAge: 10080
+trustPolicy: no-downgrade
+trustPolicyIgnoreAfter: 10080
+trustPolicyExclude:
+  - eslint-import-resolver-typescript
