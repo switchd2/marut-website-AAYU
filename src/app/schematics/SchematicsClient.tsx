@@ -197,11 +197,6 @@ export default function SchematicsClient() {
 
           {/* Viewer Panel */}
           <div className="lg:col-span-8 bg-gray-950 border border-dark-border rounded-lg overflow-hidden flex flex-col justify-center items-center p-6 relative min-h-[400px]">
-            {/* Visualizer Frame */}
-            <div className="absolute top-4 left-4 flex items-center gap-2 bg-dark/80 px-3 py-1.5 rounded border border-dark-border z-10 font-mono text-[10px] text-yellow">
-              <span className="size-1.5 bg-yellow rounded-full animate-ping"></span>
-              RENDER: {activeLayer.toUpperCase()}
-            </div>
 
             <div className="relative w-full h-[320px] md:h-[400px]">
               <Image
