@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import Image from 'next/image'
 import SectionHeading from '@/components/ui/SectionHeading'
 import { IconX, IconChevronLeft, IconChevronRight, IconMaximize } from '@tabler/icons-react'
@@ -28,6 +28,8 @@ const galleryImages = [
 
 export default function ProgressGallery() {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
+  const lightboxIndexRef = useRef<number | null>(null)
+  lightboxIndexRef.current = lightboxIndex
 
   // Disable body scroll when lightbox is open
   useEffect(() => {
@@ -60,14 +62,28 @@ export default function ProgressGallery() {
   // Handle keyboard navigation for lightbox
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (lightboxIndex === null) return
-      if (e.key === 'Escape') closeLightbox()
-      if (e.key === 'ArrowRight') navigateLightbox('next')
-      if (e.key === 'ArrowLeft') navigateLightbox('prev')
+      if (lightboxIndexRef.current === null) return
+      if (e.key === 'Escape') setLightboxIndex(null)
+      if (e.key === 'ArrowRight') {
+        setLightboxIndex(prev => {
+          if (prev === null) return null
+          let newIndex = prev + 1
+          if (newIndex >= galleryImages.length) newIndex = 0
+          return newIndex
+        })
+      }
+      if (e.key === 'ArrowLeft') {
+        setLightboxIndex(prev => {
+          if (prev === null) return null
+          let newIndex = prev - 1
+          if (newIndex < 0) newIndex = galleryImages.length - 1
+          return newIndex
+        })
+      }
     }
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [lightboxIndex, navigateLightbox])
+  }, [])
 
   return (
     <section id="gallery" className="section-padding bg-dark border-t border-dark-border">
