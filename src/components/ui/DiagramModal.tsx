@@ -1,48 +1,44 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
+import Image from 'next/image'
 import { IconZoomIn, IconZoomOut, IconMaximize, IconDownload, IconX } from '@tabler/icons-react'
 
 interface DiagramModalProps {
-  isOpen: boolean
   onClose: () => void
   svgPath: string
   title: string
 }
 
-export default function DiagramModal({ isOpen, onClose, svgPath, title }: DiagramModalProps) {
+export default function DiagramModal({ onClose, svgPath, title }: DiagramModalProps) {
   const [scale, setScale] = useState(1)
   const [position, setPosition] = useState({ x: 0, y: 0 })
   const [isDragging, setIsDragging] = useState(false)
-  const [dragStart, setDragStart] = useState({ x: 0, y: 0 })
+  const dragStart = useRef({ x: 0, y: 0 })
   
   const containerRef = useRef<HTMLDivElement>(null)
 
+  const onCloseRef = useRef(onClose)
+  onCloseRef.current = onClose
+
   // Manage body scroll lock and escape key
   useEffect(() => {
-    if (isOpen) {
-      setScale(1)
-      setPosition({ x: 0, y: 0 })
-      document.body.style.overflow = 'hidden'
-      
-      const handleKeyDown = (e: KeyboardEvent) => {
-        if (e.key === 'Escape') {
-          onClose()
-        }
+    document.body.style.overflow = 'hidden'
+    
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onCloseRef.current()
       }
-      window.addEventListener('keydown', handleKeyDown)
-      return () => {
-        window.removeEventListener('keydown', handleKeyDown)
-      }
-    } else {
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
       document.body.style.overflow = 'unset'
     }
-  }, [isOpen, onClose])
+  }, [])
 
   // Manage mouse wheel zoom
   useEffect(() => {
-    if (!isOpen) return
-    
     const container = containerRef.current
     if (!container) return
 
@@ -56,13 +52,12 @@ export default function DiagramModal({ isOpen, onClose, svgPath, title }: Diagra
       }
     }
 
+    // react-doctor-disable-next-line react-doctor/client-passive-event-listeners
     container.addEventListener('wheel', handleWheel, { passive: false })
     return () => {
       container.removeEventListener('wheel', handleWheel)
     }
-  }, [isOpen])
-
-  if (!isOpen) return null
+  }, [])
 
   const handleZoomIn = () => setScale(prev => Math.min(prev + 0.25, 4))
   const handleZoomOut = () => setScale(prev => Math.max(prev - 0.25, 0.5))
@@ -75,15 +70,15 @@ export default function DiagramModal({ isOpen, onClose, svgPath, title }: Diagra
   const handleMouseDown = (e: React.MouseEvent) => {
     e.preventDefault()
     setIsDragging(true)
-    setDragStart({ x: e.clientX - position.x, y: e.clientY - position.y })
+    dragStart.current = { x: e.clientX - position.x, y: e.clientY - position.y }
   }
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!isDragging) return
     e.preventDefault()
     setPosition({
-      x: e.clientX - dragStart.x,
-      y: e.clientY - dragStart.y
+      x: e.clientX - dragStart.current.x,
+      y: e.clientY - dragStart.current.y
     })
   }
 
@@ -96,7 +91,7 @@ export default function DiagramModal({ isOpen, onClose, svgPath, title }: Diagra
     if (e.touches.length === 1) {
       setIsDragging(true)
       const touch = e.touches[0]
-      setDragStart({ x: touch.clientX - position.x, y: touch.clientY - position.y })
+      dragStart.current = { x: touch.clientX - position.x, y: touch.clientY - position.y }
     }
   }
 
@@ -105,8 +100,8 @@ export default function DiagramModal({ isOpen, onClose, svgPath, title }: Diagra
     if (e.touches.length === 1) {
       const touch = e.touches[0]
       setPosition({
-        x: touch.clientX - dragStart.x,
-        y: touch.clientY - dragStart.y
+        x: touch.clientX - dragStart.current.x,
+        y: touch.clientY - dragStart.current.y
       })
     }
   }
@@ -144,6 +139,7 @@ export default function DiagramModal({ isOpen, onClose, svgPath, title }: Diagra
         {/* Viewport Area */}
         <div 
           ref={containerRef}
+          role="none"
           className={`flex-1 relative overflow-hidden bg-gray-950/80 cursor-grab ${isDragging ? 'cursor-grabbing' : ''}`}
           onMouseDown={handleMouseDown}
           onMouseMove={handleMouseMove}
@@ -170,12 +166,14 @@ export default function DiagramModal({ isOpen, onClose, svgPath, title }: Diagra
               transformOrigin: 'center center'
             }}
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img 
+            <Image 
               src={svgPath} 
               alt={title}
+              width={1200}
+              height={800}
               className="max-w-[90%] max-h-[90%] object-contain pointer-events-none"
               draggable="false"
+              priority
             />
           </div>
         </div>
