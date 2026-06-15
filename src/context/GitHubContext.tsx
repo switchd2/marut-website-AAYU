@@ -1,6 +1,6 @@
 'use client'
 
-import React, { createContext, useContext, useMemo, useSyncExternalStore } from 'react'
+import React, { createContext, use, useMemo, useSyncExternalStore } from 'react'
 
 export interface Contributor {
   login: string
@@ -119,5 +119,5 @@ export function GitHubProvider({ children }: { children: React.ReactNode }) {
 }
 
 export function useGitHub() {
-  return useContext(GitHubContext)
+  return use(GitHubContext)
 }
