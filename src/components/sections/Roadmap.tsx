@@ -9,14 +9,14 @@ interface TrackItem {
 }
 
 const quadTrack: TrackItem[] = [
-  { status: 'in-progress', title: 'Quad (core)', label: 'Active Beta' },
-  { status: 'planned', title: 'Addition of extra flight modes', desc: 'Acro, Stabilize, Basic Altitude hold' },
-  { status: 'planned', title: 'Additional Controller tuning' },
+  { status: 'done', title: 'Quad (core)' },
+  { status: 'done', title: 'Additional Controller tuning' },
+  { status: 'in-progress', title: 'Addition of extra flight modes', desc: 'Acro, Stabilize, Basic Altitude hold', label: 'Active' },
   { status: 'planned', title: 'Quad specific telemetry items' },
 ]
 
 const fwTrack: TrackItem[] = [
-  { status: 'in-progress', title: 'Fixed wing (core)', label: 'Active Beta' },
+  { status: 'in-progress', title: 'Fixed wing (core)', label: 'Active' },
   { status: 'planned', title: 'Addition of extra flight modes', desc: 'Manual, Stabilize, FBWA, Circle' },
   { status: 'planned', title: 'Additional Controller tuning' },
   { status: 'planned', title: 'FW specific telemetry items' },
@@ -45,22 +45,21 @@ function SubTrack({ items }: { items: TrackItem[] }) {
   return (
     <div className="flex flex-col gap-3">
       {items.map((item) => (
-        <div key={item.title} className={`p-3.5 rounded border flex items-start gap-3 transition-all duration-300 ${
-          item.status === 'in-progress' 
-            ? 'bg-yellow/5 border-yellow shadow-[0_0_15px_rgba(0,255,85,0.08)]' 
-            : 'bg-dark-surface/40 border-dark-border/40'
-        }`}>
-          <div className={`flex-shrink-0 w-3.5 h-3.5 mt-0.5 rounded-sm border flex items-center justify-center bg-dark ${
-            item.status === 'in-progress' ? 'border-yellow animate-pulse' : 'border-dark-border'
+        <div key={item.title} className={`p-3.5 rounded border flex items-start gap-3 transition-all duration-300 ${item.status === 'in-progress'
+          ? 'bg-yellow/5 border-yellow shadow-[0_0_15px_rgba(0,255,85,0.08)]'
+          : 'bg-dark-surface/40 border-dark-border/40'
           }`}>
+          <div className={`flex-shrink-0 w-3.5 h-3.5 mt-0.5 rounded-sm border flex items-center justify-center bg-dark ${item.status === 'done' ? 'border-yellow bg-yellow' :
+            item.status === 'in-progress' ? 'border-yellow animate-pulse' : 'border-dark-border'
+            }`}>
+            {item.status === 'done' && <IconCheck size={8} className="text-dark font-black" />}
             {item.status === 'in-progress' && <div className="size-1.5 bg-yellow rounded-sm" />}
           </div>
-          
+
           <div className="flex-1">
             <div className="flex items-center gap-2 flex-wrap">
-              <h4 className={`text-xs font-bold uppercase tracking-wider ${
-                item.status === 'planned' ? 'text-white/30' : 'text-white'
-              }`}>
+              <h4 className={`text-xs font-bold uppercase tracking-wider ${item.status === 'planned' ? 'text-white/30' : 'text-white'
+                }`}>
                 {item.title}
               </h4>
               {item.label && (
@@ -70,9 +69,8 @@ function SubTrack({ items }: { items: TrackItem[] }) {
               )}
             </div>
             {item.desc && (
-              <p className={`text-[11px] mt-1 leading-relaxed ${
-                item.status === 'planned' ? 'text-white/20' : 'text-white/50'
-              }`}>
+              <p className={`text-[11px] mt-1 leading-relaxed ${item.status === 'planned' ? 'text-white/20' : 'text-white/50'
+                }`}>
                 {item.desc}
               </p>
             )}
@@ -141,28 +139,25 @@ export default function Roadmap() {
 
             <div className="flex flex-col gap-3">
               {hwTrack.map((item) => (
-                <div key={item.title} className={`p-3.5 rounded border flex items-center gap-3 transition-all duration-300 ${
-                  item.status === 'in-progress'
-                    ? 'bg-yellow/5 border-yellow shadow-[0_0_15px_rgba(0,255,85,0.08)] scale-[1.01]'
-                    : item.status === 'done'
+                <div key={item.title} className={`p-3.5 rounded border flex items-center gap-3 transition-all duration-300 ${item.status === 'in-progress'
+                  ? 'bg-yellow/5 border-yellow shadow-[0_0_15px_rgba(0,255,85,0.08)] scale-[1.01]'
+                  : item.status === 'done'
                     ? 'bg-dark-surface/20 border-dark-border/40'
                     : 'bg-dark-surface/5 border-dark-border/10'
-                }`}>
-                  {/* Status Indicator (Square) */}
-                  <div className={`flex-shrink-0 size-4 rounded-sm border flex items-center justify-center bg-dark ${
-                    item.status === 'done' ? 'border-yellow bg-yellow' :
-                    item.status === 'in-progress' ? 'border-yellow animate-pulse' :
-                    'border-dark-border'
                   }`}>
+                  {/* Status Indicator (Square) */}
+                  <div className={`flex-shrink-0 size-4 rounded-sm border flex items-center justify-center bg-dark ${item.status === 'done' ? 'border-yellow bg-yellow' :
+                    item.status === 'in-progress' ? 'border-yellow animate-pulse' :
+                      'border-dark-border'
+                    }`}>
                     {item.status === 'done' && <IconCheck size={10} className="text-dark font-black" />}
                     {item.status === 'in-progress' && <div className="size-1.5 bg-yellow rounded-sm" />}
                   </div>
 
                   {/* Content card */}
                   <div className="flex-1 flex items-center gap-2 flex-wrap justify-between">
-                    <h4 className={`text-xs font-bold uppercase tracking-wider ${
-                      item.status === 'planned' ? 'text-white/20' : 'text-white'
-                    }`}>
+                    <h4 className={`text-xs font-bold uppercase tracking-wider ${item.status === 'planned' ? 'text-white/20' : 'text-white'
+                      }`}>
                       {item.title}
                     </h4>
                     {item.label && (
