@@ -16,9 +16,9 @@ const quadTrack: TrackItem[] = [
 ]
 
 const fwTrack: TrackItem[] = [
-  { status: 'in-progress', title: 'Fixed wing (core)', label: 'Active' },
+  { status: 'done', title: 'Fixed wing (core)' },
+  { status: 'in-progress', title: 'Additional Controller tuning', label: 'Active' },
   { status: 'planned', title: 'Addition of extra flight modes', desc: 'Manual, Stabilize, FBWA, Circle' },
-  { status: 'planned', title: 'Additional Controller tuning' },
   { status: 'planned', title: 'FW specific telemetry items' },
 ]
 
